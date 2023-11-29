@@ -11,12 +11,16 @@ Proyecto final de NoSQL utilizando una API sobre la MLB
 ## Primera parte: Cómo trabajar con ella y vaciado en Mongo
 
 1.1. Clonar este repositorio
+
 1.2. Posicionarse en el con Ubuntu
+
 1.3. Correr el comando: `docker compose up -d`
+
 1.4. Ejecutar mongo:
 ```
 docker exec -it supernosql-mongo-l mongosh
 ```
+
 1.5. Ejecutar los queries
 
 ## Segunda parte: Transformación a Cassandra
@@ -25,6 +29,7 @@ docker exec -it supernosql-mongo-l mongosh
 ```
 docker exec
 ```
+
 2.2 Ejecutar los queries
 
 ## Tercer parte: Transformación a Neo4j
