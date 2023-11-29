@@ -27,7 +27,7 @@ docker exec -it supernosql-mongo-l mongosh
 
 2.1 Ejecutar Cassandra:
 ```
-docker exec
+docker exec -it proyectonosql-cassandra-1 cqlsh
 ```
 
 2.2 Ejecutar los queries
@@ -35,9 +35,9 @@ docker exec
 ## Tercer parte: Transformación a Neo4j
 
 3.1 Ejecutar Neo4j:
-```
-docker exec
-```
+
+Lo hacemos con localhost:7474
+
 3.2 Ejecutar los queries
 
 # Resolución de problemas: Queries
