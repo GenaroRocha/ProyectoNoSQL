@@ -13,4 +13,4 @@ Proyecto final de NoSQL utilizando una API sobre la MLB
 1. Clonar este repositorio
 2. Posicionarse en el en Ubuntu
 3. Correr el comando:
-'docker compose up -d'
+/'docker compose up -d'/
