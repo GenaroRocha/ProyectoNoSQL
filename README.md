@@ -39,3 +39,5 @@ docker exec
 docker exec
 ```
 3.2 Ejecutar los queries
+
+# Resolución de problemas: Queries
