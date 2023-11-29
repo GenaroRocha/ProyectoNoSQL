@@ -18,7 +18,7 @@ Proyecto final de NoSQL utilizando una API sobre la MLB
 
 1.4. Ejecutar mongo:
 ```
-docker exec -it supernosql-mongo-l mongosh
+docker exec -it proyectonosql-mongo-l mongosh
 ```
 
 1.5. Ejecutar los queries
