@@ -1,5 +1,7 @@
 # ProyectoNoSQL - MLB
 
+## Configuración
+
 Proyecto final de NoSQL utilizando una API sobre la MLB
 
 1. La API se vacía en un Datalake en Mongo.
@@ -12,7 +14,14 @@ Proyecto final de NoSQL utilizando una API sobre la MLB
 
 1.1. Clonar este repositorio
 
-1.2. Posicionarse en el con Ubuntu
+1.1.2 Después de clonar el repositorio, ejecute el siguiente comando para configurar el entorno:
+
+    ```bash
+    ./setup.sh
+    ```
+
+1.2. Abra una terminal en Ubuntu (o WSL si está utilizando Windows).
+
 
 1.3. Correr el comando: `docker compose up -d`
 
