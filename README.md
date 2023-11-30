@@ -44,14 +44,7 @@ Una vez que Jupyter Notebook esté en ejecución, se abrirá en su navegador web
 ### Interacción con las Bases de Datos
 El proyecto utiliza MongoDB, Cassandra y Neo4J. Asegúrese de que los servicios correspondientes estén en ejecución y accesibles a través de Jupyter Notebook para realizar operaciones de base de datos.
 
-## Primera Parte: Vaciado en Mongo
-Describa aquí los pasos específicos o scripts para trabajar con MongoDB, incluyendo cómo vaciar datos en el datalake.
-
-## Segunda Parte: Transformación con Cassandra
-Instrucciones sobre cómo transformar y mover los datos a Cassandra.
-
-## Tercera Parte: Creación del Grafo en Neo4J
-Pasos para crear y analizar el grafo en Neo4J a partir de los datos existentes.
+A partir de este momento, el trabajo se realizará a través de Proyecto.ipynb. Puede verificar los queries en Queries.md.
 
 ---
 
