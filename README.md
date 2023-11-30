@@ -6,6 +6,8 @@
 
 ![NBA](https://www.wallpaperflare.com/static/862/992/3/kentucky-basketball-2015-ncaa-final-four-wallpaper.jpg)
 
+![Im](LINK_A_IMAGEN)
+
 ## Descripción
 Este proyecto utiliza tecnologías NoSQL para manejar y analizar datos de la NBA. El flujo de datos se maneja a través de un datalake en MongoDB, se transforma y almacena en Cassandra, y se crea un grafo en Neo4J para análisis avanzados.
 
