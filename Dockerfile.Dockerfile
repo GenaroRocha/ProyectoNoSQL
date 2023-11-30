@@ -9,6 +9,3 @@ COPY . /app
 
 # Instala las dependencias dentro del entorno virtual
 RUN pip install -r requirements.txt
-
-# Comando predeterminado para ejecutar tus scripts cuando se inicie el contenedor
-CMD ["sh", "-c", "python SuperMongo2.py && python updataneo.py"]
