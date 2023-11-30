@@ -2,46 +2,65 @@ from pymongo import MongoClient
 from cassandra.cluster import Cluster
 from cassandra.query import BatchStatement
 
-# MongoDB connection setup
+# Conexión a MongoDB
 mongo_client = MongoClient('mongodb://localhost:27017/')
 mongo_db = mongo_client['nba']
 mongo_collection = mongo_db['player_data']
 
-# Cassandra connection setup
-cluster = Cluster(['localhost'])
-cassandra_session = cluster.connect()
+# Conexión a Cassandra en el puerto 9042
+cluster = Cluster(['localhost'], port=9042)
+session = cluster.connect()
 
-# Create keyspace and table in Cassandra if they don't exist
-cassandra_session.execute("""
-    CREATE KEYSPACE IF NOT EXISTS nba WITH replication = { 
+# Crear keyspace y tabla si no existen
+session.execute("""
+    CREATE KEYSPACE IF NOT EXISTS nba WITH replication = {
         'class': 'SimpleStrategy', 
-        'replication_factor': '1' 
+        'replication_factor': '1'
     }
 """)
-cassandra_session.execute("""
-    CREATE TABLE IF NOT EXISTS nba.player_data (
+session.execute("""
+    CREATE TABLE IF NOT EXISTS nba.player_stats (
         id int PRIMARY KEY,
-        type text,
-        team_name text,
-        players list<text>
+        player_name text,
+        age int,
+        games int,
+        games_started int,
+        minutes_played int,
+        field_goals int,
+        field_attempts int,
+        field_percent text,
+        three_fg int,
+        three_attempts int,
+        three_percent text,
+        two_fg int,
+        two_attempts int,
+        two_percent text,
+        effect_fg_percent text,
+        ft int,
+        fta int,
+        ft_percent text,
+        ORB int,
+        DRB int,
+        TRB int,
+        AST int,
+        STL int,
+        BLK int,
+        TOV int,
+        PF int,
+        PTS int,
+        team text,
+        season int
     )
 """)
 
-# Function to insert data into Cassandra
+# Función para insertar datos en Cassandra
 def insert_into_cassandra(data):
-    # Assuming data is a dictionary containing the player data
-    # Adjust field names and types according to your data model and requirements
-    prepared = cassandra_session.prepare("""
-        INSERT INTO nba.player_data (id, type, team_name, players)
-        VALUES (?, ?, ?, ?)
+    prepared = session.prepare("""
+        INSERT INTO nba.player_stats (id, player_name, age, games, games_started, minutes_played, field_goals, field_attempts, field_percent, three_fg, three_attempts, three_percent, two_fg, two_attempts, two_percent, effect_fg_percent, ft, fta, ft_percent, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, team, season)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """)
-    batch = BatchStatement()
-    batch.add(prepared, (data['id'], data['type'], data['team_name'], data['players']))
-    cassandra_session.execute(batch)
+    session.execute(prepared, (data['id'], data['player_name'], data['age'], data['games'], data['games_started'], data['minutes_played'], data['field_goals'], data['field_attempts'], data['field_percent'], data['three_fg'], data['three_attempts'], data['three_percent'], data['two_fg'], data['two_attempts'], data['two_percent'], data['effect_fg_percent'], data['ft'], data['fta'], data['ft_percent'], data['ORB'], data['DRB'], data['TRB'], data['AST'], data['STL'], data['BLK'], data['TOV'], data['PF'], data['PTS'], data['team'], data['season']))
 
-# Fetch data from MongoDB collection
-mongo_data = mongo_collection.find()
-
-# Transfer data to Cassandra
-for data in mongo_data:
+# Transferir datos de MongoDB a Cassandra
+for data in mongo_collection.find():
     insert_into_cassandra(data)
