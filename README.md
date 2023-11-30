@@ -44,7 +44,7 @@ Una vez que Jupyter Notebook esté en ejecución, se abrirá en su navegador web
 ### Interacción con las Bases de Datos
 El proyecto utiliza MongoDB, Cassandra y Neo4J. Asegúrese de que los servicios correspondientes estén en ejecución y accesibles a través de Jupyter Notebook para realizar operaciones de base de datos.
 
-A partir de este momento, el trabajo se realizará a través de Proyecto.ipynb. Puede verificar los queries en Queries.md.
+A partir de este momento, el trabajo se realizará a través de **Proyecto.ipynb**. Puede verificar los queries en **Queries.md**.
 
 ---
 
