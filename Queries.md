@@ -63,4 +63,26 @@ ALLOW FILTERING;
 
 # Neo4j
 
-## 
+## Consulta que identifica a los jugadores que anotaron más de 500 triples en una temporada
+
+```
+MATCH (p:Player)
+WHERE p.field_goals > 500
+RETURN p.player_name, p.season
+```
+
+## Consulta que encuentra a los equipos con un jugador que tiene más de 30 años
+
+```
+MATCH (p:Player)-[:PART_OF]->(t:Team)
+WHERE p.age > 30 AND p.season = 2023
+RETURN p.player_name, t.team_name
+```
+
+## Consulta que identifica los puntos promedio por jugador de todas las temporadas
+
+```
+MATCH (p:Player)-[:PART_OF]->(t:Team)
+RETURN p.player_name as Player, t.team_name as Team, AVG(p.PTS) as avgPoints
+ORDER BY avgPoints DESC LIMIT 50;
+```
