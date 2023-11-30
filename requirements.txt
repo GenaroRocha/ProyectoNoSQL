@@ -1,3 +1,4 @@
+cassandra-driver
 pandas
 numpy
 matplotlib
