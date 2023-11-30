@@ -2,7 +2,9 @@ version: '3'
 
 services:
   my_python_app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.Dockerfile
     command: >
       bash -c "python api_to_mongo.py && python mongo_to_cassandra.py && python mongo_to_cassandra.py"
     depends_on:
