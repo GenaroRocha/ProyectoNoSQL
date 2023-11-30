@@ -13,7 +13,7 @@ Este proyecto utiliza tecnologías NoSQL para manejar y analizar datos de la NBA
 Para comenzar, clone este repositorio en su máquina local:
 
 ```bash
-git clone <URL_del_repositorio>
+git clone https://github.com/GenaroRocha/ProyectoNoSQL
 cd ProyectoNoSQL
 ```
 
