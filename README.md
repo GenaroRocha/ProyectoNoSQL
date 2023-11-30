@@ -1,52 +1,55 @@
-# ProyectoNoSQL - MLB
-
-## Configuración
-
-Proyecto final de NoSQL utilizando una API sobre la MLB
-
-1. La API se vacía en un Datalake en Mongo.
-
-2. Se transforma la base de datos a Cassandra.
-
-3. Se crea un grafo en Neo4J.
-
-## Primera parte: Cómo trabajar con ella y vaciado en Mongo
-
-1.1. Clonar este repositorio
-
-1.1.2 Después de clonar el repositorio, ejecute el siguiente comando para configurar el entorno:
-
-    ```bash
-    ./setup.sh
-    ```
-
-1.2. Abra una terminal en Ubuntu (o WSL si está utilizando Windows).
 
 
-1.3. Correr el comando: `docker compose up -d`
+---
 
-1.4. Ejecutar mongo:
-```
-docker exec -it proyectonosql-mongo-l mongosh
+# ProyectoNoSQL - NBA
+
+## Descripción
+Este proyecto utiliza tecnologías NoSQL para manejar y analizar datos de la NBA. El flujo de datos se maneja a través de un datalake en MongoDB, se transforma y almacena en Cassandra, y se crea un grafo en Neo4J para análisis avanzados.
+
+## Configuración y Ejecución
+
+### Clonar el Repositorio
+Para comenzar, clone este repositorio en su máquina local:
+
+```bash
+git clone <URL_del_repositorio>
+cd ProyectoNoSQL
 ```
 
-1.5. Ejecutar los queries
+### Configuración del Entorno
+Antes de ejecutar el proyecto, asegúrese de tener Docker y Docker Compose instalados. Luego, siga los siguientes pasos para configurar el entorno:
 
-## Segunda parte: Transformación a Cassandra
+1. **Ejecutar el Script de Configuración** (si es aplicable):
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
 
-2.1 Ejecutar Cassandra:
-```
-docker exec -it proyectonosql-cassandra-1 cqlsh
-```
+2. **Iniciar Jupyter Notebook**:
+   - Asigne permisos de ejecución al script de inicio de Jupyter:
+     ```bash
+     chmod +x start_jupyter.sh
+     ```
+   - Ejecute el script para iniciar Jupyter y abrirlo automáticamente en su navegador:
+     ```bash
+     ./start_jupyter.sh
+     ```
 
-2.2 Ejecutar los queries
+### Trabajar con Jupyter Notebook
+Una vez que Jupyter Notebook esté en ejecución, se abrirá en su navegador web. Desde allí, podrá acceder y ejecutar el archivo `proyecto.ipynb`, que contiene el código y los análisis para el proyecto.
 
-## Tercer parte: Transformación a Neo4j
+### Interacción con las Bases de Datos
+El proyecto utiliza MongoDB, Cassandra y Neo4J. Asegúrese de que los servicios correspondientes estén en ejecución y accesibles a través de Jupyter Notebook para realizar operaciones de base de datos.
 
-3.1 Ejecutar Neo4j:
+## Primera Parte: Vaciado en Mongo
+Describa aquí los pasos específicos o scripts para trabajar con MongoDB, incluyendo cómo vaciar datos en el datalake.
 
-Lo hacemos con localhost:7474
+## Segunda Parte: Transformación con Cassandra
+Instrucciones sobre cómo transformar y mover los datos a Cassandra.
 
-3.2 Ejecutar los queries
+## Tercera Parte: Creación del Grafo en Neo4J
+Pasos para crear y analizar el grafo en Neo4J a partir de los datos existentes.
 
-# Resolución de problemas: Queries
+---
+
