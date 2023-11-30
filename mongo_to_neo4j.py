@@ -1,29 +1,92 @@
 from pymongo import MongoClient
 from neo4j import GraphDatabase
+#from py2neo import Graph
 
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017/')
 db = client['nba']
 collection = db['player_data']
 
+# Fetch data from MongoDB collection
+mongo_data = collection.find()
+
 # Connect to Neo4j
-uri = "bolt://localhost:7474"
+uri = "bolt://localhost:7687"
 username = "neo4j"
 password = "neo"
 driver = GraphDatabase.driver(uri, auth=(username, password))
 
-# Transfer from mongo to neo4j
-def create_node(tx, data):
-    # Create nodes in Neo4j
-    tx.run("CREATE (n:Node {property: $value})", value=data['property'])
+##################################
+########## Create nodes ##########
+##################################
+players = []
+teams = []
 
-# Fetch data from MongoDB collection
-mongo_data = collection.find()
+def create_player_node(tx, props):
+    tx.run("CREATE (n:Player)"
+    	   "SET n += $props", props=props)
 
-# Create nodes in Neo4j based on MongoDB data
+def create_team_node(tx, props):
+    tx.run("CREATE (n:Team)"
+    	   "SET n += $props", props=props)
+
+#with driver.session() as session:
+	#player_0 = list(mongo_data)[1]
+	#player_0.pop('_id') # Removes object id
+	#player_0.pop('id')
+	#session.execute_write(create_player_node, player_0)
+
+# Add a node for each json in the db
 with driver.session() as session:
-    for data in mongo_data:
-        session.write_transaction(create_node, data)
+	for doc in mongo_data:
+		# Player nodes
+		if doc['type'] == 'Player':
+			# Removes id and object id
+			doc.pop('_id')
+			doc.pop('id')
+			players.append(doc)
+			session.execute_write(create_player_node, doc)
+		# Team nodes
+		elif doc['type'] == 'Team':
+			# Removes id and object id
+			doc.pop('_id')
+			doc.pop('id')
+			# Removes player list
+			#doc.pop('players')
+			teams.append(doc)
+			session.execute_write(create_team_node, doc)
+
+
+##################################
+########## Create edges ##########
+##################################
+def create_edges(tx):
+	tx.run("""
+		   MATCH (p:Player),(t:Team)
+		   WHERE p.team = t.team_name
+	  	   CREATE (p)-[:PART_OF]->(t);
+	  	   """)
+
+# Add an edge going from each player to his team
+with driver.session() as session:
+	session.execute_write(create_edges)
+
+
+'''
+@staticmethod
+def _create_and_return_greeting(tx, message):
+    result = tx.run("CREATE (a:Greeting) "
+                    "SET a.message = $message "
+                    "RETURN a.message + ', from node ' + id(a)", message=message)
+    return result.single()[0]
+
+with driver.session() as session:
+    greeting = session.execute_write(_create_and_return_greeting, "Hello world")
+    print(greeting)
+
+driver.close()
+'''
+
 
 '''
 # Set type por all players in the database
@@ -38,7 +101,22 @@ db.player_data.aggregate([ { $group: {_id: "$team"} }  ])
 # Find all teams from each team
 
 
-# 
+# Insert teams
+db.player_data.insertMany(
+[
+{ 'id': 10000, 'team_name': 'MEM', 'type': 'Team' },
+{ 'id': 10001, 'team_name': 'BOS', 'type': 'Team' },
+{ 'id': 10002, 'team_name': 'BRK', 'type': 'Team' },
+{ 'id': 10003, 'team_name': 'TOR', 'type': 'Team' },
+{ 'id': 10004, 'team_name': 'NJN', 'type': 'Team' },
+{ 'id': 10005, 'team_name': 'ATL', 'type': 'Team' },
+{ 'id': 10006, 'team_name': 'DAL', 'type': 'Team' },
+{ 'id': 10007, 'team_name': 'PHI', 'type': 'Team' },
+{ 'id': 10008, 'team_name': 'NYK', 'type': 'Team' },
+{ 'id': 10009, 'team_name': 'HOU', 'type': 'Team' }
+])
+
+
 
 {
     id: 7562,
