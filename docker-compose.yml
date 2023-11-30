@@ -6,6 +6,8 @@ services:
       - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
+    networks:
+      - mi_red
 
   cassandra:
     image: cassandra:latest
@@ -13,6 +15,8 @@ services:
       - "9042:9042"
     volumes:
       - ./data/cassandra:/var/lib/cassandra
+    networks:
+      - mi_red
 
   neo4j:
     image: neo4j:4.4
@@ -30,6 +34,8 @@ services:
       - NEO4J_apoc_import_file_use__neo4j__config=true
       - NEO4J_dbms_security_procedures_unrestricted=apoc.*
       - NEO4J_AUTH=none
+    networks:
+      - mi_red
 
   jupyter:
     build:
@@ -39,3 +45,9 @@ services:
       - "8888:8888"
     volumes:
       - .:/home/jovyan
+    networks:
+      - mi_red
+
+networks:
+  mi_red:
+    driver: bridge
